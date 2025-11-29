@@ -9,7 +9,7 @@ services:
     networks:
       - lonkodev
     healthcheck:
-      test: ["CMD", "curl", "-f", "localhost:5000"]
+      test: ["CMD", "curl localhost:5000"]
       interval: 10s
       timeout: 5s
       retries: 3
