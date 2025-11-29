@@ -1,0 +1,38 @@
+services:
+  web:
+    build: ./web
+    ports: 
+      - "5000:5000"
+    depends_on:
+      db:
+        condition: service_healthy
+    networks:
+      - lonkodev
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost:5000"]
+      interval: 10s
+      timeout: 5s
+      retries: 3
+    restart: unless-stopped
+  db:
+    image: mysql:8
+    environment:
+      MYSQL_ROOT_PASSWORD: root
+      MYSQL_DATABASE: lonkito
+    volumes:
+      - db_data:/var/lib/mysql            
+      - ./db/initdb.d:/docker-entrypoint-initdb.d 
+    networks:
+      - lonkodev
+    healthcheck:
+      test: ["CMD", "mysqladmin", "ping", "-h", "localhost"]
+      interval: 5s
+      timeout: 3s
+      retries: 3
+
+volumes:
+  db_data:
+
+networks:
+  lonkodev:
+    driver: bridge
