@@ -4,7 +4,7 @@ import mysql.connector
 app = Flask(__name__)
 @app.route("/")
 def home():
-    conn = mysql.connector.connect(host="db", user="root", password="root", database="lonkito")
+    conn = mysql.connector.connect(host="db", user="root", password="root", database="lonktio")
     cursor=conn.cursor()
     cursor.execute("SELECT hora,actividad,estado,imagen FROM log")
     datos = cursor.fetchall()
