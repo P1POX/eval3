@@ -6,7 +6,29 @@
     <title>Document</title>
 </head>
 <body>
-    hola
-    <img src="/workspaces/eval3/web/static/img/image copy.png">
+    <img src="static/img/logo.png">
+    <table border="1">
+        <tr>
+            <th>Hora</th>
+            <th>Actividad</th>
+            <th>Estado</th>
+            <th>Imagen</th>
+        </tr>
+
+        {% for fila in datos %}
+        <tr>
+            <td>{{ fila[0] }}</td>
+            <td>{{ fila[1] }}</td>
+            <td>{{ fila[2] }}</td>
+            <td>
+                {% if fila[3] %}
+                    <img src="{{ fila[3] }}" width="100">
+                {% else %}
+                    Sin imagen
+                {% endif %}
+            </td>
+        </tr>
+        {% endfor %}
+    </table>
 </body>
 </html>

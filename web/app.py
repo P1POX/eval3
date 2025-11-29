@@ -6,13 +6,12 @@ app = Flask(__name__)
 def home():
     conn = mysql.connector.connect(host="db", user="root", password="root")
     cursor=conn.cursor()
-    cursor.execute("SELECT 'flask conectado'")
-    result = cursor.fetchone()[0]
+    cursor.execute("SELECT hora,actividad,estado,imagen FROM log")
+    datos = cursor.fetchall()
     cursor.close()
     conn.close()
-    return render_template(
-        "index.html"
-    )
+    return render_template("index.html", datos=datos)
+
 
 if __name__ == "__main__":
     app.run(host="0.0.0.0", port=5000)
